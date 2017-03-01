@@ -1,5 +1,7 @@
 'use strict'
 
+const User = use('App/Model/User')
+
 class UsersController {
     /**
      * Show login page
@@ -19,14 +21,26 @@ class UsersController {
      * Show register page
      */
     * showRegisterPage (request, response) {
-        yield response.sendView()
+        yield response.sendView('auth.register')
     }
 
     /**
      * Handle user registration
      */
     * register (request, response) {
+        // validate form input
+        
+        // persist to database
+        const user = yield User.create({
+            username: request.input('username'),
+            email: request.input('email'),
+            password: request.input('password')
+        })
 
+        yield request.auth.login(user)
+        response.redirect('/')
+
+        // show flash message
     }
 }
 

@@ -1,0 +1,60 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Register</div>
+                    <div class="panel-body">
+                        {{ form.open({url: '/register', method: 'POST', class: 'form-horizontal'}) }}
+                            {{ csrfField }}
+
+                            <div class="form-group">
+                                {{ form.label('username', 'Username', {class: 'col-md-4 control-label'}) }}
+
+                                <div class="col-md-6">
+                                    {{ form.text('username', null, {class: 'form-control'}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.label('email', 'Email', {class: 'col-md-4 control-label'}) }}
+
+                                <div class="col-md-6">
+                                    {{ form.email('email', null, {class: 'form-control'}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.label('password', 'Password', {class: 'col-md-4 control-label'}) }}
+
+                                <div class="col-md-6">
+                                    {{ form.password('password', null, {class: 'form-control'}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.label('password-confirm', 'Confirm Password', {class: 'col-md-4 control-label'}) }}
+
+                                <div class="col-md-6">
+                                    {{ form.password('password_confirmation', null, {class: 'form-control'}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    {{ form.button('Register', 'register', {class: 'btn btn-primary'}) }}
+                                </div>
+                            </div>
+                        {{ form.close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

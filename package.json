@@ -21,6 +21,7 @@
     "adonis-framework": "^3.0.9",
     "adonis-lucid": "^3.0.13",
     "adonis-middleware": "^1.0.10",
+    "adonis-validation-provider": "^3.0.5",
     "adonis-websocket": "^1.0.2",
     "mysql": "^2.13.0",
     "standard": "^8.6.0",
