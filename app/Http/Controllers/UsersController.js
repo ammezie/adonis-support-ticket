@@ -1,6 +1,7 @@
 'use strict'
 
 const User = use('App/Model/User')
+const Validator = use('Validator')
 
 class UsersController {
     /**
@@ -29,6 +30,12 @@ class UsersController {
      */
     * register (request, response) {
         // validate form input
+        const validation = yield Validator.validateAll(request.all(), User.rules)
+
+        if (validation.fails()) {
+            response.json(validation.messages())
+            return
+        }
         
         // persist to database
         const user = yield User.create({
@@ -41,6 +48,14 @@ class UsersController {
         response.redirect('/')
 
         // show flash message
+    }
+
+    /**
+     * Logout authenticated user
+     */
+    * logout(request, response) {
+        yield request.auth.logout()
+        response.redirect('/login')
     }
 }
 

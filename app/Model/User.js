@@ -22,6 +22,17 @@ class User extends Lucid {
     return this.hasMany('App/Model/Token')
   }
 
+  /**
+   * Define validation rules
+   */
+  static get rules() {
+    return {
+      username: 'required|unique:users',
+      email: 'required|email|unique:users',
+      password: 'required|confirmed'
+    }
+  }
+
 }
 
 module.exports = User
