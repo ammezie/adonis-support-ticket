@@ -9,8 +9,8 @@ Route.on('/').render('home')
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route.get('register', 'UsersController.showRegisterPage')
-Route.post('register', 'UsersController.register')
-Route.get('login', 'UsersController.showLoginPage')
-Route.post('login', 'UsersController.login')
-Route.get('logout', 'UsersController.logout')
+Route.get('register', 'AuthController.showRegisterPage')
+Route.post('register', 'AuthController.register')
+Route.get('login', 'AuthController.showLoginPage')
+Route.post('login', 'AuthController.login')
+Route.get('logout', 'AuthController.logout')

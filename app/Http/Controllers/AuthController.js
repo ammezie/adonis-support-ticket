@@ -3,7 +3,7 @@
 const User = use('App/Model/User')
 const Validator = use('Validator')
 
-class UsersController {
+class AuthController {
     /**
      * Show login page
      */
@@ -78,4 +78,4 @@ class UsersController {
     }
 }
 
-module.exports = UsersController
+module.exports = AuthController
