@@ -15,7 +15,20 @@ class UsersController {
      * Handle user authentication
      */
     * login (request, response) {
+        const email = request.input('email')
+        const password = request.input('password')
 
+        try {
+            yield request.auth.attempt(email, password)
+
+            // redirect to homepage
+            response.redirect('/')
+        } catch (e) {
+            yield request.with({ error: 'Invalid credentails' }).flash()
+
+            // redirect back with error
+            response.redirect('back')
+        }
     }
 
     /**

@@ -5,5 +5,47 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Login Page</h1>
+  <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Login</div>
+                    <div class="panel-body">
+                        
+                        {% if old('error') %}
+                            <div class="alert alert-danger">
+                                {{ old('error') }}
+                            </div>
+                        {% endif %}
+
+                        {{ form.open({ url: '/login', method: 'POST', class: 'form-horizontal' }) }}
+                            {{ csrfField }}
+
+                            <div class="form-group">
+                                {{ form.label('email', 'Email', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.email('email', null, { class: 'form-control' }) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.label('password', 'Password', { class: 'col-md-4 control-label' }) }}
+
+                                <div class="col-md-6">
+                                    {{ form.password('password', null, { class: 'form-control' }) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    {{ form.button('Login', 'login', { class: 'btn btn-primary' }) }}
+                                </div>
+                            </div>
+                        {{ form.close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
