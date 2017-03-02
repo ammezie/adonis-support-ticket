@@ -32,11 +32,16 @@ class UsersController {
         // validate form input
         const validation = yield Validator.validateAll(request.all(), User.rules)
 
+        // show error messages upon validation fail
         if (validation.fails()) {
-            response.json(validation.messages())
-            return
+            yield request
+                .withAll()
+                .andWith({ errors: validation.messages() })
+                .flash()
+
+            return response.redirect('back')
         }
-        
+
         // persist to database
         const user = yield User.create({
             username: request.input('username'),
@@ -44,10 +49,11 @@ class UsersController {
             password: request.input('password')
         })
 
+        // login the user
         yield request.auth.login(user)
-        response.redirect('/')
 
-        // show flash message
+        // redirect to homepage
+        response.redirect('/')
     }
 
     /**
