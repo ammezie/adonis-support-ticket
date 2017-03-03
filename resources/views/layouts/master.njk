@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             {% ifAsync currentUser %}
-              <li><a href="#">Open Ticket</a></li>
+              <li><a href="/new_ticket">Open Ticket</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ currentUser.username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
