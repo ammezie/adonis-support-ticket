@@ -1,5 +1,6 @@
 'use strict'
 
+const Mail = use('Mail')
 const Validator = use('Validator')
 const Ticket = use('App/Model/Ticket')
 const RandomString = use('randomstring')
@@ -20,6 +21,8 @@ class TicketsController {
      * Store a newly created ticket in database.
      */
     * store (request, response) {
+        const user = request.currentUser
+
         // validate form input
         const validation = yield Validator.validateAll(request.all(), {
             title: 'required',
@@ -41,15 +44,20 @@ class TicketsController {
         // persist ticket to database
         const ticket = yield Ticket.create({
             title: request.input('title'),
-            user_id: request.currentUser.id,
+            user_id: user.id,
             ticket_id: RandomString.generate({ length: 10, capitalization: 'uppercase' }),
             category_id: request.input('category'),
             priority: request.input('priority'),
             message: request.input('message'),
             status: "Open",
         })
+
         // send mail notification
-        
+        yield Mail.send('emails.ticket_info', { user, ticket }, (message) => {
+            message.to(user.email, user.username)
+            message.from('support@adonissupport.dev')
+            message.subject(`[Ticket ID: ${ticket.ticket_id}] ${ticket.title}`)
+        })        
 
         yield request.with({ status: `A ticket with ID: #${ticket.ticket_id} has been opened.` }).flash()
         response.redirect('back')
