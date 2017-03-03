@@ -20,5 +20,5 @@ Route.get('logout', 'AuthController.logout')
 | Tickets Routes
 |--------------------------------------------------------------------------
 */
-Route.get('new_ticket', 'TicketsController.create');
-Route.post('new_ticket', 'TicketsController.store');
+Route.get('new_ticket', 'TicketsController.create').middleware('auth')
+Route.post('new_ticket', 'TicketsController.store').middleware('auth')

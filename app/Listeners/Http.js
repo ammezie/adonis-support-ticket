@@ -15,6 +15,14 @@ Http.handleError = function * (error, request, response) {
   const status = error.status || 500
 
   /**
+   * Handle exception thrown when unable to authenticate the request
+   */
+  if (error.name === 'InvalidLoginException') {
+    yield response.sendView('auth.login')
+    return
+  }
+
+  /**
    * DEVELOPMENT REPORTER
    */
   if (Env.get('NODE_ENV') === 'development') {
