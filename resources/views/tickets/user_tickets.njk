@@ -1,0 +1,58 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    My Tickets
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    My Tickets</i>
+                </div>
+
+                <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for ticket in tickets %}
+                                <tr>
+                                    <td>
+                                    {% for category in categories %}
+                                        {% if category.id == ticket.category_id %}
+                                            {{ category.name }}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </td>
+                                    <td>
+                                        <a href="tickets/{{ ticket.ticket_id }}">
+                                            #{{ ticket.ticket_id }} - {{ ticket.title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                    {% if ticket.status == 'Open' %}
+                                        <span class="label label-success">{{ ticket.status }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ ticket.status }}</span>
+                                    {% endif %}
+                                    </td>
+                                    <td>{{ ticket.updated_at }}</td>
+                                </tr>
+                            {% else %}
+                                <p>You have not created any tickets.</p>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

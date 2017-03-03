@@ -8,10 +8,17 @@ const Category = use('App/Model/Category')
 
 class TicketsController {
 
+    * userTickets(request, response) {
+        const tickets = yield Ticket.query().where('user_id', request.currentUser.id).fetch()
+        const categories = yield Category.all()
+
+        yield response.sendView('tickets.user_tickets', { tickets: tickets.toJSON(), categories: categories.toJSON() })
+    }
+
     /**
      * Show the form for opening a new ticket.
      */
-    * create (request, response) {
+    * create(request, response) {
         const categories = yield Category.pair('id', 'name')
 
         yield response.sendView('tickets.create', {categories: categories})
@@ -20,7 +27,7 @@ class TicketsController {
     /**
      * Store a newly created ticket in database.
      */
-    * store (request, response) {
+    * store(request, response) {
         const user = request.currentUser
 
         // validate form input

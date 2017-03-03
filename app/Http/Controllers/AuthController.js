@@ -7,14 +7,14 @@ class AuthController {
     /**
      * Show login page
      */
-    * showLoginPage (request, response) {
+    * showLoginPage(request, response) {
         yield response.sendView('auth.login')
     }
 
     /**
      * Handle user authentication
      */
-    * login (request, response) {
+    * login(request, response) {
         const email = request.input('email')
         const password = request.input('password')
 
@@ -34,14 +34,14 @@ class AuthController {
     /**
      * Show register page
      */
-    * showRegisterPage (request, response) {
+    * showRegisterPage(request, response) {
         yield response.sendView('auth.register')
     }
 
     /**
      * Handle user registration
      */
-    * register (request, response) {
+    * register(request, response) {
         // validate form input
         const validation = yield Validator.validateAll(request.all(), User.rules)
 
