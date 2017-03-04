@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Suppor Ticket</title>
+</head>
+<body>
+    <p>
+        {{ comment.comment }}
+    </p>
+
+    ---
+    <p>Replied by: {{ user.username }}</p>
+
+    <p>Title: {{ commentTicket.title }}</p>
+    <p>Ticket ID: {{ commentTicket.ticket_id }}</p>
+    <p>Status: {{ commentTicket.status }}</p>
+
+    <p>
+        You can view the ticket at any time at http://localhost:3333/tickets/{{ commentTicket.ticket_id }}
+    </p>
+
+</body>
+</html>

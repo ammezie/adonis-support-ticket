@@ -33,6 +33,20 @@ class User extends Lucid {
     }
   }
 
+  /**
+   * A user can have many comments
+   */
+  comments() {
+    return this.hasMany('App/Model/Comment')
+  }
+
+  /**
+   * A user can have many tickets
+   */
+  tickets() {
+    return this.hasMany('App/Model/Ticket')
+  }
+
 }
 
 module.exports = User

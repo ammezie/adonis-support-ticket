@@ -24,3 +24,5 @@ Route.get('new_ticket', 'TicketsController.create').middleware('auth')
 Route.post('new_ticket', 'TicketsController.store').middleware('auth')
 Route.get('tickets/:ticket_id', 'TicketsController.show').middleware('auth')
 Route.get('my_tickets', 'TicketsController.userTickets').middleware('auth')
+
+Route.post('comment', 'CommentsController.postComment')
