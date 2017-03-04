@@ -8,6 +8,9 @@ const Category = use('App/Model/Category')
 
 class TicketsController {
 
+    /**
+     * Display all tickets by a user.
+     */
     * userTickets(request, response) {
         const tickets = yield Ticket.query().where('user_id', request.currentUser.id).fetch()
         const categories = yield Category.all()
@@ -68,6 +71,17 @@ class TicketsController {
 
         yield request.with({ status: `A ticket with ID: #${ticket.ticket_id} has been opened.` }).flash()
         response.redirect('back')
+    }
+
+    /**
+     * Display a specified ticket.
+     */
+    * show(request, response) {
+        const ticket = yield Ticket.query().where('ticket_id', request.param('ticket_id')).firstOrFail()
+
+        const category = yield ticket.category().fetch()
+
+        yield response.sendView('tickets.show', { ticket: ticket.toJSON(), category: category.toJSON() })
     }
 }
 

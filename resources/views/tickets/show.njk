@@ -1,0 +1,52 @@
+{% extends 'layouts.master' %}
+
+{% block title %}
+    {{ ticket.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    #{{ ticket.ticket_id }} - {{ ticket.title }}
+                </div>
+
+                <div class="panel-body">
+                    {% include 'includes.status' %}
+                    {% include 'includes.errors' %}
+
+                    <div class="ticket-info">
+                        <p>{{ ticket.message }}</p>
+                        <p>Categry: {{ category.name }}</p>
+                        <p>
+                        {% if ticket.status == 'Open' %}
+                            Status: <span class="label label-success">{{ ticket.status }}</span>
+                        {% else %}
+                            Status: <span class="label label-danger">{{ ticket.status }}</span>
+                        {% endif %}
+                        </p>
+                        <p>Created on: {{ ticket.created_at }}</p>
+                    </div>
+
+                    <hr>
+
+                    <div class="comment-form">
+                        {{ form.open({ url: '/comment', method: 'POST', class: 'form' }) }}
+                            {{ csrfField }}
+
+                            {{ form.hidden('ticket_id', ticket.id) }}
+
+                            <div class="form-group">
+                                {{ form.textarea('comment', null, { class: 'form-control', rows: 10 }) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.button('Submit', null, { class: 'btn btn-primary' }) }}
+                            </div>
+                        {{ form.close() }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
