@@ -31,6 +31,21 @@
 
                     <hr>
 
+                    <div class="comments">
+                    {% for comment in comments %}
+                        <div class="panel panel-{{ "default" if ticket.user.id == comment.user_id else "success" }}">
+                            <div class="panel panel-heading">
+                                {{ comment.user.username }}
+                                <span class="pull-right">{{ comment.created_at }}</span>
+                            </div>
+
+                            <div class="panel panel-body">
+                                {{ comment.comment }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
                     <div class="comment-form">
                         {{ form.open({ url: '/comment', method: 'POST', class: 'form' }) }}
                             {{ csrfField }}

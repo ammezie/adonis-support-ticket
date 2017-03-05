@@ -77,11 +77,18 @@ class TicketsController {
      * Display a specified ticket.
      */
     * show(request, response) {
-        const ticket = yield Ticket.query().where('ticket_id', request.param('ticket_id')).firstOrFail()
-
+        const ticket = yield Ticket.query()
+                        .where('ticket_id', request.param('ticket_id'))
+                        .with('user')
+                        .firstOrFail()
+        const comments = yield ticket.comments().with('user').fetch()
         const category = yield ticket.category().fetch()
 
-        yield response.sendView('tickets.show', { ticket: ticket.toJSON(), category: category.toJSON() })
+        yield response.sendView('tickets.show', {
+            ticket: ticket.toJSON(),
+            comments: comments.toJSON(),
+            category: category.toJSON()
+        })
     }
 }
 
