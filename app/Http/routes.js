@@ -35,4 +35,4 @@ Route.post('comment', 'CommentsController.postComment')
 Route.group('admin', function () {
     Route.get('tickets', 'TicketsController.index');
     Route.post('close_ticket/:ticket_id', 'TicketsController.close');
-}).prefix('admin').middleware('admin')
+}).prefix('admin').middleware(['auth', 'admin'])

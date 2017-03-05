@@ -1,7 +1,29 @@
 {% extends 'layouts.master' %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Dashboard {% endblock %}
 
 {% block content %}
-  <p>Welcome to Adonis Support!</p>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+
+                <div class="panel-body">
+                    <p>You are logged in!</p>
+
+                    {% if currentUser.is_admin %}
+                        <p>
+                            See all <a href="/admin/tickets">tickets</a>
+                        </p>
+                    {% else %}
+                        <p>
+                            See all your <a href="/my_tickets">tickets</a> or <a href="/new_ticket">open new ticket</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
