@@ -1,18 +1,18 @@
 {% extends 'layouts.master' %}
 
-{% block title %} My Tickets {% endblock %}
+{% block title %} All Tickets {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    My Tickets</i>
+                    <i class="fa fa-ticket"> Tickets</i>
                 </div>
 
                 <div class="panel-body">
                     {% if tickets.length == 0 %}
-                        <p>You have not created any tickets.</p>
+                        <p>There are currently no tickets.</p>
                     {% else %}
                         <table class="table">
                             <thead>
@@ -21,6 +21,7 @@
                                     <th>Title</th>
                                     <th>Status</th>
                                     <th>Last Updated</th>
+                                    <th style="text-align:center" colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,7 +35,7 @@
                                     {% endfor %}
                                     </td>
                                     <td>
-                                        <a href="tickets/{{ ticket.ticket_id }}">
+                                        <a href="/tickets/{{ ticket.ticket_id }}">
                                             #{{ ticket.ticket_id }} - {{ ticket.title }}
                                         </a>
                                     </td>
@@ -46,6 +47,15 @@
                                     {% endif %}
                                     </td>
                                     <td>{{ ticket.updated_at }}</td>
+                                    <td>
+                                        <a href="/tickets/{{ ticket.ticket_id }}" class="btn btn-primary">Comment</a>
+                                    </td>
+                                    <td>
+                                        {{ form.open({ url: '/admin/close_ticket/' + ticket.ticket_id, method: 'POST' }) }}
+                                            {{ csrfField }}
+                                            {{ form.button('Close', null, { class: 'btn btn-danger' }) }}
+                                        {{ form.close() }}
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

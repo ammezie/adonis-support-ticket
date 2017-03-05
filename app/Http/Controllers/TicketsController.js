@@ -9,6 +9,16 @@ const Category = use('App/Model/Category')
 class TicketsController {
 
     /**
+     * Display all tickets.
+     */
+    * index(request, response) {
+        const tickets = yield Ticket.all()
+        const categories = yield Category.all()
+
+        yield response.sendView('tickets.index', { tickets: tickets.toJSON(), categories: categories.toJSON() })
+    }
+
+    /**
      * Display all tickets by a user.
      */
     * userTickets(request, response) {
@@ -89,6 +99,29 @@ class TicketsController {
             comments: comments.toJSON(),
             category: category.toJSON()
         })
+    }
+
+    /**
+     * Close the specified ticket.
+     */
+    * close(request, response) {
+        const ticket = yield Ticket.query()
+                        .where('ticket_id', request.param('ticket_id'))
+                        .firstOrFail()
+        ticket.status = 'Closed'
+        yield ticket.save()
+
+        const ticketOwner = yield ticket.user().fetch()
+
+        // send email
+        yield Mail.send('emails.ticket_status', { ticketOwner, ticket }, (message) => {
+            message.to(ticketOwner.email, ticketOwner.username)
+            message.from('support@adonissupport.dev')
+            message.subject(`RE: ${ticket.title} (Ticket ID: ${ticket.ticket_id})`)
+        })
+        
+        yield request.with({ status: 'The ticket has been closed.' }).flash()
+        response.redirect('back')
     }
 }
 
