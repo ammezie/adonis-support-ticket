@@ -39,6 +39,11 @@ DB_DATABASE=
 ./ace migration:run
 ```
 
+### Run Categories Seeder
+```
+./ace db:seed
+```
+
 ### Mail Driver
 Specify mail driver:
 
