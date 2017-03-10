@@ -13,11 +13,23 @@
 */
 
 // const Factory = use('Factory')
+const Database = use('Database')
 
 class DatabaseSeeder {
 
   * run () {
-    // yield Factory.model('App/Model/User').create(5)
+    yield Database.table('categories').insert([
+    	{
+    		name: 'Technical',
+    		created_at: '2017-03-07 00:00:00',
+    		updated_at: '2017-03-07 00:00:00'
+    	},
+    	{
+    		name: 'Sales',
+    		created_at: '2017-03-07 00:00:00',
+    		updated_at: '2017-03-07 00:00:00'
+    	}
+    ])
   }
 
 }
