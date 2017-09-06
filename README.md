@@ -15,7 +15,7 @@ If you use https, use this instead
 git clone https://github.com/ammezie/adonis-support-ticket.git
 ```
 
-Run the command below to install Laravel dependencies 
+Run the command below to install dependencies 
 
 ```
 npm install
